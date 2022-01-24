@@ -34,5 +34,7 @@ module.exports.routes = {
   ***************************************************************************/
   'GET /fileType/suscribeToAll':{ controller: 'FileTypeController', action: 'suscribeToAll' },
 
+  'GET /fileType/publishSomething': {controller: 'FileTypeController', action: 'publishSomething'}
+
 
 };

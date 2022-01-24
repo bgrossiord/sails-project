@@ -7,12 +7,22 @@ For more information, see:
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet">
 <script type="text/javascript" src="/dependencies/sails.io.js"></script>
 <script type="text/javascript" >
+  let fileType;
+
   io.socket.get('/filetype/suscribeToAll', function (msg) {
-    console.log('fileTypes ', msg);
+    fileType=msg
+    console.log('fileType ', msg);
   });
-  io.socket.patch('/filetype/61ead64328e4fa2ae940f177', {name:"raoul", schema:{"test":"testpostman"}},function gotResponse(body, response) {
+  io.socket.on('filetype', function (msg) {
+    console.log('fileType event ', msg);
+  });
+  io.socket.post('/filetype', {name:"Antoine", schema:{"test":"test"}},function gotResponse(body, response) {
     console.log('created fileType: ', body);
+    io.socket.get('/filetype/publishSomething', function (msg) {
+    console.log('published ', msg);
+  });
   })
+  
 </script>
 <div class="default-page">
   <div class="header">
