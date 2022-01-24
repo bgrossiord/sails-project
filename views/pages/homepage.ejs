@@ -7,27 +7,40 @@ For more information, see:
 <link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet">
 <script type="text/javascript" src="/dependencies/sails.io.js"></script>
 <script type="text/javascript" >
-  let fileType;
+  let fileId;
 
   io.socket.get('/filetype', function (msg) {
-    fileType=msg
     console.log('fileType ', msg);
+    fileId= msg[0].id
   });
   io.socket.on('filetype', function (msg) {
     console.log('fileType event ', msg);
   });
-  io.socket.post('/filetype', {name:"Antoine", schema:{"test":"test"}},function gotResponse(body, response) {
+  function createFileType(){
+    io.socket.post('/filetype', {name:"Antoine", schema:{"test":"test"}},function gotResponse(body, response) {
+      console.log(document.getElementById("updateName").innerText.replace(fileId, body.id))
+    document.getElementById("updateName").innerText = 'update fileType  '+body.id
+    fileId = body.id
     console.log('created fileType: ', body);
-    io.socket.get('/filetype/publishSomething', function (msg) {
-    console.log('published ', msg);
-  });
   })
+}
+  function updateFileType(){
+    io.socket.patch('/filetype/'+fileId, {name:document.getElementById("name").value, schema:{"testbis":"testbis"}},function gotResponse(body, response) {
+    console.log('updated fileType: ', body);
+  })
+}
+ 
   
 </script>
 <div class="default-page">
   <div class="header">
     <h1 id="main-title" class="container"><%= __('A brand new app.') %></h1>
     <h3 class="container">You're looking at: <code><%= view.pathFromApp + '.' +view.ext %></code></h3>
+    <button  onclick="createFileType()" >Create fileType</button>
+    <div>
+      <input type="text" name="text" id="name"/>
+      <button  onclick="updateFileType()" id="updateName" >update fileType 61eade6faaacb6634078c36b</button>
+    </div>
   </div>
   <div class="main container clearfix">
 
