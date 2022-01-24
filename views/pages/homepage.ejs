@@ -1,0 +1,25 @@
+<!--
+This is your default homepage.
+For more information, see:
+• https://sailsjs.com/documentation/concepts/views
+• https://sailsjs.com/documentation/concepts/routes
+-->
+<link href="https://fonts.googleapis.com/css?family=Lato:300,400" rel="stylesheet">
+<script type="text/javascript" src="/dependencies/sails.io.js"></script>
+<script type="text/javascript" >
+  io.socket.get('/filetype/suscribeToAll', function (msg) {
+    console.log('fileTypes ', msg);
+  });
+  io.socket.patch('/filetype/61ead64328e4fa2ae940f177', {name:"raoul", schema:{"test":"testpostman"}},function gotResponse(body, response) {
+    console.log('created fileType: ', body);
+  })
+</script>
+<div class="default-page">
+  <div class="header">
+    <h1 id="main-title" class="container"><%= __('A brand new app.') %></h1>
+    <h3 class="container">You're looking at: <code><%= view.pathFromApp + '.' +view.ext %></code></h3>
+  </div>
+  <div class="main container clearfix">
+
+  </div>
+</div>
