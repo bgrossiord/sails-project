@@ -9,7 +9,7 @@ For more information, see:
 <script type="text/javascript" >
   let fileType;
 
-  io.socket.get('/filetype/suscribeToAll', function (msg) {
+  io.socket.get('/filetype', function (msg) {
     fileType=msg
     console.log('fileType ', msg);
   });
